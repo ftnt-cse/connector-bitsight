@@ -1,0 +1,1363 @@
+{
+  "name": "bitsight",
+  "label": "Bitsight",
+  "description": "Bitsight is a global cyber risk management leader transforming how companies manage exposure, performance, and risk for themselves and their third parties.",
+  "publisher": "Fortinet",
+  "cs_approved": false,
+  "cs_compatible": true,
+  "contributor": "",
+  "version": "1.0.0",
+  "category": "Attack Surface Management",
+  "icon_small_name": "small.png",
+  "icon_large_name": "large.png",
+  "help_online": "https://github.com/fortinet-fortisoar/connector-bitsight/blob/release/1.0.0/docs/BitsightConnectorDoc.md",
+  "configuration": {
+    "fields": [
+      {
+        "title": "Server URL",
+        "name": "server_url",
+        "required": true,
+        "editable": true,
+        "visible": true,
+        "type": "text",
+        "description": "Specify the URL of Bitsight server to connect and perform the automated operations.",
+        "tooltip": "Specify the URL of Bitsight server to connect and perform the automated operations.",
+        "placeholder": "eg: https://api.bitsighttech.com"
+      },
+      {
+        "title": "API Token",
+        "name": "api_token",
+        "required": true,
+        "editable": true,
+        "visible": true,
+        "type": "password",
+        "description": "Specify the API token to access the Bitsight server to connect and perform the automated operations.",
+        "tooltip": "Specify the API token to access the Bitsight server to connect and perform the automated operations."
+      },
+      {
+        "title": "Verify SSL",
+        "required": false,
+        "editable": true,
+        "visible": true,
+        "type": "checkbox",
+        "name": "verify_ssl",
+        "description": "Specifies whether the SSL certificate for the server is to be verified. By default, this option is set to True.",
+        "tooltip": "Specifies whether the SSL certificate for the server is to be verified. By default, this option is set to True.",
+        "value": true
+      }
+    ]
+  },
+  "operations": [
+    {
+      "operation": "get_alerts",
+      "annotation": "get_alerts",
+      "category": "investigation",
+      "title": "Get Alerts",
+      "description": "Retrieves the detailed list of alerts based on the parameters that you have specified.",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Start Date",
+          "name": "alert_date_gte",
+          "type": "datetime",
+          "description": "Specify the start datetime of the duration from when the data should be fetched.",
+          "tooltip": "Specify the start datetime of the duration from when the data should be fetched.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "End Date",
+          "name": "alert_date_lte",
+          "type": "datetime",
+          "description": "Specify the end datetime of the duration till when the data should be fetched.",
+          "tooltip": "Specify the end datetime of the duration till when the data should be fetched.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Alert Category",
+          "name": "alert_type",
+          "type": "text",
+          "description": "Specify the alert category to filter the alerts.",
+          "tooltip": "Specify the alert category to filter the alerts.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Company GUID",
+          "name": "company_guid",
+          "type": "text",
+          "description": "Specify the company GUID to filter the alerts.",
+          "tooltip": "Specify the company GUID to filter the alerts.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Include Details",
+          "name": "expand",
+          "type": "text",
+          "description": "Include additional alert details.",
+          "tooltip": "Include additional alert details.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Folder GUID",
+          "name": "folder_guid",
+          "type": "text",
+          "description": "Specify the folder GUID to filter the alerts.",
+          "tooltip": "Specify the folder GUID to filter the alerts.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Severity",
+          "name": "severity",
+          "type": "text",
+          "description": "Specify the severity to filter the alerts.",
+          "tooltip": "Specify the severity to filter the alerts.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Limit",
+          "name": "limit",
+          "type": "integer",
+          "description": "Specify the limit to fetch the records. Default limit is 100.",
+          "tooltip": "Specify the limit to fetch the records. Default limit is 100.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Offset",
+          "name": "offset",
+          "type": "integer",
+          "description": "Specify the offset to fetch the records.",
+          "tooltip": "Specify the offset to fetch the records.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        }
+      ],
+      "output_schema": {
+        "links": {
+          "previous": "",
+          "next": ""
+        },
+        "count": "",
+        "results": [
+          {
+            "guid": "",
+            "alert_type": "",
+            "alert_date": "",
+            "start_date": "",
+            "company_name": "",
+            "company_guid": "",
+            "company_url": "",
+            "folder_guid": "",
+            "folder_name": "",
+            "severity": "",
+            "trigger": ""
+          }
+        ]
+      }
+    },
+    {
+      "operation": "get_companies_with_exposed_credentials",
+      "annotation": "get_companies_with_exposed_credentials",
+      "category": "investigation",
+      "title": "Get Companies With Exposed Credentials",
+      "description": "Retrieves the detailed list of companies with exposed credentials in you portfolio based on the parameters that you have specified.",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Start Date",
+          "name": "date_added_gte",
+          "type": "datetime",
+          "description": "Specify the start datetime of the duration from when the data should be fetched.",
+          "tooltip": "Specify the start datetime of the duration from when the data should be fetched.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "End Date",
+          "name": "date_added_lte",
+          "type": "datetime",
+          "description": "Specify the end datetime of the duration till when the data should be fetched.",
+          "tooltip": "Specify the end datetime of the duration till when the data should be fetched.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Limit",
+          "name": "limit",
+          "type": "integer",
+          "description": "Specify the maximum number of records to return in the response.",
+          "tooltip": "Specify the maximum number of records to return in the response.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Offset",
+          "name": "offset",
+          "type": "integer",
+          "description": "Specify the offset index from where the records should be returned. The index starts from 0.",
+          "tooltip": "Specify the offset index from where the records should be returned. The index starts from 0.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        }
+      ],
+      "output_schema": {
+        "links": {
+          "next": "",
+          "previous": ""
+        },
+        "count": "",
+        "results": [
+          {
+            "company_guid": "",
+            "company_name": "",
+            "leak_guid": "",
+            "date_added": "",
+            "unique_domain_count": "",
+            "record_count": ""
+          }
+        ]
+      }
+    },
+    {
+      "operation": "get_credentials_leaks",
+      "annotation": "get_credentials_leaks",
+      "category": "investigation",
+      "title": "Get Credentials Leaks Affecting Your Portfolio",
+      "description": "Retrieves the detailed list of credentials leaks affecting your portfolio based on the parameters that you have specified.",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Limit",
+          "name": "limit",
+          "type": "integer",
+          "description": "Specify the maximum number of records to return in the response.",
+          "tooltip": "Specify the maximum number of records to return in the response.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Offset",
+          "name": "offset",
+          "type": "integer",
+          "description": "Specify the offset index from where the records should be returned. The index starts from 0.",
+          "tooltip": "Specify the offset index from where the records should be returned. The index starts from 0.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        }
+      ],
+      "output_schema": {
+        "links": {
+          "next": "",
+          "previous": ""
+        },
+        "count": "",
+        "results": [
+          {
+            "guid": "",
+            "name": "",
+            "leak_date": "",
+            "date_added": "",
+            "description": "",
+            "data_types_leaked": [
+              {
+                "name": "",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "operation": "get_threat_evidence",
+      "annotation": "get_threat_evidence",
+      "category": "investigation",
+      "title": "Get Threat Evidence",
+      "description": "Retrieves the detailed list of threat evidence based on the parameters that you have specified.",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Company GUID",
+          "name": "company_guid",
+          "type": "text",
+          "description": "Specify the company GUID to filter the records.",
+          "tooltip": "Specify the company GUID to filter the records.",
+          "required": true,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Threat GUID",
+          "name": "threat_guid",
+          "type": "text",
+          "description": "Specify the threat GUID to filter the records.",
+          "tooltip": "Specify the threat GUID to filter the records.",
+          "required": true,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Last Seen Start Date",
+          "name": "last_seen_date_gte",
+          "type": "datetime",
+          "description": "Specify the start datetime of the duration from when the data should be fetched.",
+          "tooltip": "Specify the start datetime of the duration from when the data should be fetched.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Last Seen End Date",
+          "name": "last_seen_date_lte",
+          "type": "datetime",
+          "description": "Specify the end datetime of the duration till when the data should be fetched.",
+          "tooltip": "Specify the end datetime of the duration till when the data should be fetched.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Detection Type",
+          "name": "detection_type",
+          "type": "select",
+          "description": "Specify the detection type to filter the records. You can choose from the following options: Exposure, Mitigation.",
+          "tooltip": "Specify the detection type to filter the records. You can choose from the following options: Exposure, Mitigation.",
+          "options": [
+            "Exposure",
+            "Mitigation"
+          ],
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Evidence Certainty",
+          "name": "evidence_certainty",
+          "type": "select",
+          "description": "Specify the evidence certainty to filter the records. You can choose from the following options: Possible, Likely, Confirmed.",
+          "tooltip": "Specify the evidence certainty to filter the records. You can choose from the following options: Possible, Likely, Confirmed.",
+          "options": [
+            "Possible",
+            "Likely",
+            "Confirmed"
+          ],
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Exposure Detection",
+          "name": "exposure_detection",
+          "type": "select",
+          "description": "Specify the exposure detection to filter the records. You can choose from the following options: Currently, Previously.",
+          "tooltip": "Specify the exposure detection to filter the records. You can choose from the following options: Currently, Previously.",
+          "options": [
+            "Currently",
+            "Previously"
+          ],
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Force Masked",
+          "name": "force_masked",
+          "type": "checkbox",
+          "description": "Specify if you want to force mask.",
+          "tooltip": "Specify if you want to force mask.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Limit",
+          "name": "limit",
+          "type": "integer",
+          "description": "Specify the limit to fetch the records. Default value is 10.",
+          "tooltip": "Specify the limit to fetch the records. Default value is 10.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Offset",
+          "name": "offset",
+          "type": "integer",
+          "description": "Specify the offset to fetch the records. Default value is 0.",
+          "tooltip": "Specify the offset to fetch the records. Default value is 0.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        }
+      ],
+      "output_schema": {
+        "links": {
+          "previous": "",
+          "next": ""
+        },
+        "count": "",
+        "results": [
+          {
+            "identifier": "",
+            "certainty": "",
+            "exposure_detection": "",
+            "detection_type": "",
+            "first_seen_date": "",
+            "last_seen_date": ""
+          }
+        ]
+      }
+    },
+    {
+      "operation": "get_portfolio_threats",
+      "annotation": "get_portfolio_threats",
+      "category": "investigation",
+      "title": "Get Portfolio Threats",
+      "description": "Retrieves the detailed list of portfolio threats based on the parameters that you have specified.",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Company GUID",
+          "name": "company_guid",
+          "type": "text",
+          "description": "Specify the company GUID to filter the records.",
+          "tooltip": "Specify the company GUID to filter the records.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Category Slug",
+          "name": "category_slug",
+          "type": "text",
+          "description": "Specify the category slug to filter the records.",
+          "tooltip": "Specify the category slug to filter the records.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Maximum Number of Exposed Entities",
+          "name": "currently_exposed_count_lte",
+          "type": "integer",
+          "description": "Specify the maximum number of exposed entities to filter the records.",
+          "tooltip": "Specify the maximum number of exposed entities to filter the records.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Minimum Number of Exposed Entities",
+          "name": "currently_exposed_count_gte",
+          "type": "integer",
+          "description": "Specify the minimum number of exposed entities to filter the records.",
+          "tooltip": "Specify the minimum number of exposed entities to filter the records.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Last Seen Start Date",
+          "name": "last_seen_date_gte",
+          "type": "datetime",
+          "description": "Specify the start datetime of the duration from when the data should be fetched.",
+          "tooltip": "Specify the start datetime of the duration from when the data should be fetched.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Last Seen End Date",
+          "name": "last_seen_date_lte",
+          "type": "datetime",
+          "description": "Specify the end datetime of the duration till when the data should be fetched.",
+          "tooltip": "Specify the end datetime of the duration till when the data should be fetched.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Expand",
+          "name": "expand",
+          "type": "text",
+          "description": "Include the number of questionnaires sent to each threat.",
+          "tooltip": "Include the number of questionnaires sent to each threat.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Folder",
+          "name": "folder",
+          "type": "text",
+          "description": "Specify the folder GUID to filter the records.",
+          "tooltip": "Specify the folder GUID to filter the records.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Impact Group",
+          "name": "impacts_group",
+          "type": "select",
+          "description": "Specify the impact to filter the records. You can choose from the following options: True - Include threats that are affecting the entities. False - Include threats that are not affecting the entities.",
+          "tooltip": "Specify the impact to filter the records.",
+          "options": [
+            "True",
+            "False"
+          ],
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Severity Level",
+          "name": "severity_level",
+          "type": "text",
+          "description": "Specify the severity level to filter the records.",
+          "tooltip": "Specify the severity level to filter the records.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Sort",
+          "name": "sort",
+          "type": "text",
+          "description": "Sort the objects based on the specified value. To sort in descending order, place a minus sign (-) immediately before the field name.",
+          "tooltip": "Sort the objects based on the specified value. To sort in descending order, place a minus sign (-) immediately before the field name.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Threat GUID",
+          "name": "threat_guid",
+          "type": "text",
+          "description": "Specify the threat GUID to filter the records.",
+          "tooltip": "Specify the threat GUID to filter the records.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Tier",
+          "name": "tier",
+          "type": "text",
+          "description": "Specify the tier to filter the records.",
+          "tooltip": "Specify the tier to filter the records.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Limit",
+          "name": "limit",
+          "type": "integer",
+          "description": "Specify the maximum number of records to return in the response. Default value is 10.",
+          "tooltip": "Specify the maximum number of records to return in the response. Default value is 10.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Offset",
+          "name": "offset",
+          "type": "integer",
+          "description": "Specify the offset index from where the records should be returned. The index starts from 0.",
+          "tooltip": "Specify the offset index from where the records should be returned. The index starts from 0.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        }
+      ],
+      "output_schema": {
+        "links": {
+          "previous": "",
+          "next": ""
+        },
+        "count": "",
+        "results": [
+          {
+            "guid": "",
+            "name": "",
+            "first_seen_date": "",
+            "last_seen_date": "",
+            "severity": {
+              "level": "",
+              "details": ""
+            },
+            "category": {
+              "name": "",
+              "slug": ""
+            },
+            "support_started_date": "",
+            "currently_exposed_count": "",
+            "previously_exposed_count": "",
+            "exposure_trend": "",
+            "questionnaires_sent": ""
+          }
+        ]
+      }
+    },
+    {
+      "operation": "get_cataloged_threats",
+      "annotation": "get_cataloged_threats",
+      "category": "investigation",
+      "title": "Get Cataloged Threats",
+      "description": "Retrieves the detailed list of cataloged threats based on the parameters that you have specified.",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Category",
+          "name": "category",
+          "type": "text",
+          "description": "Specify the category to filter the records.",
+          "tooltip": "Specify the category to filter the records.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Support Start Date",
+          "name": "support_started_date_gte",
+          "type": "datetime",
+          "description": "Specify the start datetime of the duration from when the data should be fetched.",
+          "tooltip": "Specify the start datetime of the duration from when the data should be fetched.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Support End Date",
+          "name": "support_started_date_lte",
+          "type": "datetime",
+          "description": "Specify the end datetime of the duration till when the data should be fetched.",
+          "tooltip": "Specify the end datetime of the duration till when the data should be fetched.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "GUID",
+          "name": "guid",
+          "type": "text",
+          "description": "Specify the guid to filter the records.",
+          "tooltip": "Specify the guid to filter the records.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Name",
+          "name": "name",
+          "type": "text",
+          "description": "Specify the name to filter the records.",
+          "tooltip": "Specify the name to filter the records.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Severity Level",
+          "name": "severity_level",
+          "type": "text",
+          "description": "Specify the severity level to filter the records.",
+          "tooltip": "Specify the severity level to filter the records.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Sort",
+          "name": "sort",
+          "type": "text",
+          "description": "Sort the objects based on the specified value. To sort in descending order, place a minus sign (-) immediately before the field name. The default sort is by name.",
+          "tooltip": "Sort the objects based on the specified value. To sort in descending order, place a minus sign (-) immediately before the field name. The default sort is by name.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Limit",
+          "name": "limit",
+          "type": "integer",
+          "description": "Specify the maximum number of records to return in the response. Default value is 10.",
+          "tooltip": "Specify the maximum number of records to return in the response. Default value is 10.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Offset",
+          "name": "offset",
+          "type": "integer",
+          "description": "Specify the offset index from where the records should be returned. The index starts from 0.",
+          "tooltip": "Specify the offset index from where the records should be returned. The index starts from 0.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        }
+      ],
+      "output_schema": {
+        "links": {
+          "previous": "",
+          "next": ""
+        },
+        "count": "",
+        "results": [
+          {
+            "guid": "",
+            "name": "",
+            "display_name": "",
+            "description": "",
+            "remediation_tip": "",
+            "details": {
+              "cvss": "",
+              "confidence": "",
+              "severity": "",
+              "status": ""
+            },
+            "category": {
+              "name": "",
+              "slug": ""
+            },
+            "support_started_date": ""
+          }
+        ]
+      }
+    },
+    {
+      "operation": "get_threat_statistics",
+      "annotation": "get_threat_statistics",
+      "category": "investigation",
+      "title": "Get Threat Statistics",
+      "description": "Retrieves the detailed list of threat statistics based on the parameters that you have specified.",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Folder",
+          "name": "folder",
+          "type": "text",
+          "description": "Specify the folder GUID to filter the records.",
+          "tooltip": "Specify the folder GUID to filter the records.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Scope",
+          "name": "scope",
+          "type": "text",
+          "description": "Specify the scope to filter the records.",
+          "tooltip": "Specify the scope to filter the records.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Tier",
+          "name": "tier",
+          "type": "text",
+          "description": "Specify the tier GUID to filter the records.",
+          "tooltip": "Specify the tier GUID to filter the records.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        }
+      ],
+      "output_schema": {
+        "threats_total_count": "",
+        "threats_impacting_count": "",
+        "exposure_increasing_count": "",
+        "exposure_flat_count": "",
+        "exposure_decreasing_count": "",
+        "currently_exposed_min": "",
+        "currently_exposed_max": "",
+        "previously_exposed_min": "",
+        "previously_exposed_max": "",
+        "exposure_trend_min": "",
+        "exposure_trend_max": "",
+        "severity_min": "",
+        "severity_max": ""
+      }
+    },
+    {
+      "operation": "get_threat_impact",
+      "annotation": "get_threat_impact",
+      "category": "investigation",
+      "title": "Get Threat Impact",
+      "description": "Retrieves the detailed list of threat impact based on the parameters that you have specified.",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Threat GUID",
+          "name": "threat_guid",
+          "type": "text",
+          "description": "Specify the threat GUID to filter the records.",
+          "tooltip": "Specify the threat GUID to filter the records.",
+          "required": true,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Last Seen Start Date",
+          "name": "last_seen_date_gte",
+          "type": "datetime",
+          "description": "Specify the start datetime of the duration from when the data should be fetched.",
+          "tooltip": "Specify the start datetime of the duration from when the data should be fetched.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Last Seen End Date",
+          "name": "last_seen_date_lte",
+          "type": "datetime",
+          "description": "Specify the end datetime of the duration till when the data should be fetched.",
+          "tooltip": "Specify the end datetime of the duration till when the data should be fetched.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Evidence Certainty",
+          "name": "evidence_certainty",
+          "type": "select",
+          "description": "Specify the evidence certainty to filter the records. You can choose from the following options: Possible, Likely, Confirmed.",
+          "tooltip": "Specify the evidence certainty to filter the records. You can choose from the following options: Possible, Likely, Confirmed.",
+          "options": [
+            "Possible",
+            "Likely",
+            "Confirmed"
+          ],
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Expand",
+          "name": "expand",
+          "type": "text",
+          "description": "Include the additional information of threat impact.",
+          "tooltip": "Include the additional information of threat impact.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Exposure Detection",
+          "name": "exposure_detection",
+          "type": "select",
+          "description": "Specify the exposure detection to filter the records. You can choose from the following options: Currently, Previously.",
+          "tooltip": "Specify the exposure detection to filter the records. You can choose from the following options: Currently, Previously.",
+          "options": [
+            "Currently",
+            "Previously"
+          ],
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Folder",
+          "name": "folder",
+          "type": "text",
+          "description": "Specify the folder GUID to filter the records.",
+          "tooltip": "Specify the folder GUID to filter the records.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Sort",
+          "name": "sort",
+          "type": "text",
+          "description": "Sort the objects based on the specified value. To sort in descending order, place a minus sign (-) immediately before the field name.",
+          "tooltip": "Sort the objects based on the specified value. To sort in descending order, place a minus sign (-) immediately before the field name.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Minimum Sub Threats Count",
+          "name": "sub_threats_count_gte",
+          "type": "integer",
+          "description": "Specify the minimum sub threat count to filter the records.",
+          "tooltip": "Specify the minimum sub threat count to filter the records.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Maximum Sub Threats Count",
+          "name": "sub_threats_count_lte",
+          "type": "integer",
+          "description": "Specify the maximum sub threat count to filter the records.",
+          "tooltip": "Specify the maximum sub threat count to filter the records.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Tier",
+          "name": "tier",
+          "type": "text",
+          "description": "Specify the tier GUID to filter the records.",
+          "tooltip": "Specify the tier GUID to filter the records.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Limit",
+          "name": "limit",
+          "type": "integer",
+          "description": "Specify the maximum number of records to return in the response. Default value is 25.",
+          "tooltip": "Specify the maximum number of records to return in the response. Default value is 25.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Offset",
+          "name": "offset",
+          "type": "integer",
+          "description": "Specify the offset index from where the records should be returned. The index starts from 0.",
+          "tooltip": "Specify the offset index from where the records should be returned. The index starts from 0.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        }
+      ],
+      "output_schema": {
+        "links": {
+          "previous": "",
+          "next": ""
+        },
+        "summaries": {
+          "currently_count": "",
+          "previously_count": "",
+          "total_count": "",
+          "entity_group_size": "",
+          "sub_threats_count": ""
+        },
+        "count": "",
+        "results": [
+          {
+            "company_name": "",
+            "evidence_certainty": "",
+            "exposure_detection": "",
+            "first_seen_date": "",
+            "last_seen_date": "",
+            "company_guid": "",
+            "tier": "",
+            "tier_name": "",
+            "logo": "",
+            "workflow_status": "",
+            "sub_threats_count": "",
+            "detection_types": []
+          }
+        ]
+      }
+    },
+    {
+      "operation": "get_assets",
+      "annotation": "get_assets",
+      "category": "investigation",
+      "title": "Get Assets",
+      "description": "Retrieves the detailed list of assets based on the parameters that you have specified.",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Company GUID",
+          "name": "company_guid",
+          "type": "text",
+          "description": "Specify the company GUID to filter the records.",
+          "tooltip": "Specify the company GUID to filter the records.",
+          "required": true,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Asset Name",
+          "name": "asset",
+          "type": "text",
+          "description": "Specify the asset name to filter the records.",
+          "tooltip": "Specify the asset name to filter the records.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Asset Importance",
+          "name": "combined_overrides.importance",
+          "type": "text",
+          "description": "Filter by asset importance, regardless of whether its importance is calculated or user-assigned.",
+          "tooltip": "Filter by asset importance, regardless of whether its importance is calculated or user-assigned.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Expand",
+          "name": "expand",
+          "type": "text",
+          "description": "Specify the fields to include the additional information. eg: tag_details",
+          "tooltip": "Specify the fields to include the additional information. eg: tag_details",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Minimum Asset Count",
+          "name": "findings.total_count_gte",
+          "type": "integer",
+          "description": "Filter assets by more than or equal to a set number of findings.",
+          "tooltip": "Filter assets by more than or equal to a set number of findings.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Maximum Asset Count",
+          "name": "findings.total_count_lte",
+          "type": "integer",
+          "description": "Filter assets by less than or equal to a set number of findings.",
+          "tooltip": "Filter assets by less than or equal to a set number of findings.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Hosted By",
+          "name": "hosted_by_isnull",
+          "type": "select",
+          "description": "Filter by assets associated with a hosting provider. Select true to include only the assets with an associated hosting provider, select false to include all assets, regardless of a known hosting provider.",
+          "tooltip": "Filter by assets associated with a hosting provider. Select true to include only the assets with an associated hosting provider, select false to include all assets, regardless of a known hosting provider.",
+          "options": [
+            "True",
+            "False"
+          ],
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Importance Categories",
+          "name": "importance_categories",
+          "type": "text",
+          "description": "Specify the comma separated value of asset importance to filter the records.",
+          "tooltip": "Specify the comma separated value of asset importance to filter the records.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Importance Overrides",
+          "name": "importance_overrides",
+          "type": "text",
+          "description": "Filter assets by those with user-assigned asset importance.",
+          "tooltip": "Filter assets by those with user-assigned asset importance.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "IP Address",
+          "name": "ip_address",
+          "type": "text",
+          "description": "Specify the IP address to filter the records.",
+          "tooltip": "Specify the IP address to filter the records.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Check If IP",
+          "name": "is_ip",
+          "type": "select",
+          "description": "Filter by asset type. Select true to include only the assets that are IP addresses, select false to include only the assets that are domains.",
+          "tooltip": "Filter by asset type. Select true to include only the assets that are IP addresses, select false to include only the assets that are domains.",
+          "options": [
+            "True",
+            "False"
+          ],
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Origin Subsidiary",
+          "name": "origin_subsidiary_isnull",
+          "type": "select",
+          "description": "Filter by assets that are attributed to a subsidiary. Select true to include only the assets that are attributed to a subsidiary, select false to include all assets, regardless of an attributed subsidiary.",
+          "tooltip": "Filter by assets that are attributed to a subsidiary. Select true to include only the assets that are attributed to a subsidiary, select false to include all assets, regardless of an attributed subsidiary.",
+          "options": [
+            "True",
+            "False"
+          ],
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Calculated or User-Assigned",
+          "name": "overrides_isnull",
+          "type": "select",
+          "description": "Filter assets with calculated or user-assigned asset importance. Select true to include only the assets with calculated importance, select false to include only the assets with user-assigned importance.",
+          "tooltip": "Filter assets with calculated or user-assigned asset importance. Select true to include only the assets with calculated importance, select false to include only the assets with user-assigned importance.",
+          "options": [
+            "True",
+            "False"
+          ],
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Tags",
+          "name": "tags_contains",
+          "type": "text",
+          "description": "Specify comma separated tags to filter the records.",
+          "tooltip": "Specify comma separated tags to filter the records.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Limit",
+          "name": "limit",
+          "type": "integer",
+          "description": "Specify the maximum number of records to return in the response. Default value is 100.",
+          "tooltip": "Specify the maximum number of records to return in the response. Default value is 100.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Offset",
+          "name": "offset",
+          "type": "integer",
+          "description": "Specify the offset index from where the records should be returned.",
+          "tooltip": "Specify the offset index from where the records should be returned.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Attack Surface Analytics",
+          "name": "attack_surface_analytics",
+          "type": "select",
+          "description": "Select if you have Attack Surface Analytics. The following parameters are also available if you have Attack Surface Analytics.",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "options": [
+            "Available",
+            "Not Available"
+          ],
+          "onchange": {
+            "Available": [
+              {
+                "title": "Countries",
+                "type": "text",
+                "name": "countries",
+                "required": false,
+                "editable": true,
+                "visible": true,
+                "tooltip": "Specify the comma separated value of countries to filter the records.",
+                "description": "Specify the comma separated value of countries to filter the records."
+              },
+              {
+                "title": "Hosted By",
+                "type": "text",
+                "name": "hosted_by.guid",
+                "required": false,
+                "editable": true,
+                "visible": true,
+                "tooltip": "Specify the comma separated value of company unique identifiers to filter the records.",
+                "description": "Specify the comma separated value of company unique identifiers to filter the records."
+              },
+              {
+                "title": "Product Name",
+                "type": "text",
+                "name": "product.name-version",
+                "required": false,
+                "editable": true,
+                "visible": true,
+                "tooltip": "Specify the comma separated value of product names and version to filter the records. The value can be specified in this format product:version.",
+                "description": "Specify the comma separated value of product names and version to filter the records. The value can be specified in this format product:version."
+              },
+              {
+                "title": "Threat GUID",
+                "type": "text",
+                "name": "threat.guid",
+                "required": false,
+                "editable": true,
+                "visible": true,
+                "tooltip": "Specify the comma separated value of vulnerability unique identifiers(vuln_guid) to filter the records.",
+                "description": "Specify the comma separated value of vulnerability unique identifiers(vuln_guid) to filter the records."
+              },
+              {
+                "title": "Threat Severity Level",
+                "type": "text",
+                "name": "threat.severity_level",
+                "required": false,
+                "editable": true,
+                "visible": true,
+                "tooltip": "Specify the severity level to filter the records.",
+                "description": "Specify the severity level to filter the records."
+              }
+            ]
+          }
+        }
+      ],
+      "output_schema": {
+        "links": {
+          "next": "",
+          "previous": ""
+        },
+        "count": "",
+        "results": [
+          {
+            "temporary_id": "",
+            "asset": "",
+            "asset_type": "",
+            "identifier": "",
+            "app_grade": "",
+            "ip_addresses": [],
+            "country_code": "",
+            "country": "",
+            "hosted_by": {
+              "guid": "",
+              "name": ""
+            },
+            "importance": "",
+            "importance_category": "",
+            "longitude": "",
+            "latitude": "",
+            "is_ip": "",
+            "services": [],
+            "origin_subsidiary": {
+              "guid": "",
+              "name": ""
+            },
+            "findings": {
+              "total_count": "",
+              "counts_by_severity": {
+                "severe": "",
+                "material": "",
+                "moderate": "",
+                "minor": ""
+              }
+            },
+            "threats": {
+              "rolledup_observation_ids": [],
+              "evidence_keys": []
+            },
+            "tags": [],
+            "tag_details": [
+              {
+                "guid": "",
+                "name": "",
+                "is_inherited": "",
+                "is_public": ""
+              }
+            ],
+            "overrides": {
+              "importance": ""
+            },
+            "combined_overrides": {
+              "importance": ""
+            },
+            "products": [
+              {
+                "type": "",
+                "vendor": "",
+                "product": "",
+                "version": "",
+                "support": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "operation": "get_assets_risk_matrix",
+      "annotation": "get_assets_risk_matrix",
+      "category": "investigation",
+      "title": "Get Asset Risk Matrix",
+      "description": "Retrieves the detailed list of asset risk matrix based on the parameters that you have specified.",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Company GUID",
+          "name": "company_guid",
+          "type": "text",
+          "description": "Specify the company GUID to filter the records.",
+          "tooltip": "Specify the company GUID to filter the records.",
+          "required": true,
+          "editable": true,
+          "visible": true
+        }
+      ],
+      "output_schema": {
+        "assets": [
+          {
+            "asset": "",
+            "importance": "",
+            "importance_category": "",
+            "stats": {
+              "grades": {
+                "total": "",
+                "good": "",
+                "fair": "",
+                "warn": "",
+                "bad": "",
+                "neutral": "",
+                "na": ""
+              }
+            },
+            "tags": []
+          }
+        ],
+        "stats": {
+          "critical": {
+            "grades": {
+              "total": "",
+              "good": "",
+              "fair": "",
+              "warn": "",
+              "bad": "",
+              "neutral": "",
+              "na": ""
+            }
+          }
+        }
+      }
+    }
+  ]
+}
