@@ -29,13 +29,12 @@ class Bitsight:
             endpoint = self.url + endpoint
             if params:
                 params = self.build_params(params)
-            logger.error(f"\n-------------req start-------------\n{method} {endpoint}\nusername: {self.username}\nparams: {params}\nverify: {self.verify_ssl}\n")
+            logger.debug(f"\n>>>>>>>> making API request\n{method} {endpoint}\nparams: {params}")
             try:
                 from connectors.debug_utils.curl_script import make_curl
                 make_curl(method, endpoint, auth=(self.username, ""), params=params, verify_ssl=self.verify_ssl)
             except Exception:
                 pass
-            return {}
             response = request(method, endpoint, auth=(self.username, ""), params=params, verify=self.verify_ssl)
 
             if 200 <= response.status_code <= 300:
