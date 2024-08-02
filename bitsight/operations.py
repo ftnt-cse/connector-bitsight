@@ -24,7 +24,7 @@ class Bitsight:
         self.username = str(config.get("api_token"))
         self.verify_ssl = config.get("verify_ssl")
 
-    def api_request(self, method, endpoint, params={}):
+    def api_request(self, endpoint, method="GET", params={}, data={}):
         try:
             endpoint = self.url + endpoint
             if params:
@@ -84,17 +84,17 @@ def check_health_ex(config):
 
 def get_alerts(config, params):
     ob = Bitsight(config)
-    return ob.api_request("GET", "/ratings/v2/alerts", params=params)
+    return ob.api_request("/ratings/v2/alerts", params=params)
 
 
 def get_companies_with_exposed_credentials(config, params):
     ob = Bitsight(config)
-    return ob.api_request("GET", "/ratings/v1/exposed-credentials/affected-companies", params=params)
+    return ob.api_request("/ratings/v1/exposed-credentials/affected-companies", params=params)
 
 
 def get_credentials_leaks(config, params):
     ob = Bitsight(config)
-    return ob.api_request("GET", "/ratings/v1/exposed-credentials/leaks", params=params)
+    return ob.api_request("/ratings/v1/exposed-credentials/leaks", params=params)
 
 
 def get_threat_evidence(config, params):
@@ -104,22 +104,22 @@ def get_threat_evidence(config, params):
     for key, value in params.items():
         if key in {"detection_type", "evidence_certainty", "exposure_detection"} and value:
             params[key] = value.lower()
-    return ob.api_request("GET", f"/ratings/v1/threats/{threat_guid}/companies/{company_guid}/evidence", params=params)
+    return ob.api_request(f"/ratings/v1/threats/{threat_guid}/companies/{company_guid}/evidence", params=params)
 
 
 def get_portfolio_threats(config, params):
     ob = Bitsight(config)
-    return ob.api_request("GET", "/ratings/v1/threats/", params=params)
+    return ob.api_request("/ratings/v1/threats/", params=params)
 
 
 def get_cataloged_threats(config, params):
     ob = Bitsight(config)
-    return ob.api_request("GET", "/ratings/v1/threats/catalog", params=params)
+    return ob.api_request("/ratings/v1/threats/catalog", params=params)
 
 
 def get_threat_statistics(config, params):
     ob = Bitsight(config)
-    return ob.api_request("GET", "/ratings/v1/threats/summaries", params=params)
+    return ob.api_request("/ratings/v1/threats/summaries", params=params)
 
 
 def get_threat_impact(config, params):
@@ -128,7 +128,7 @@ def get_threat_impact(config, params):
     for key, value in params.items():
         if key in {"evidence_certainty", "exposure_detection"} and value:
             params[key] = value.lower()
-    return ob.api_request("GET", f"/ratings/v1/threats/{threat_guid}/companies", params=params)
+    return ob.api_request(f"/ratings/v1/threats/{threat_guid}/companies", params=params)
 
 
 def get_assets(config, params):
@@ -139,13 +139,13 @@ def get_assets(config, params):
         if isinstance(tags, str):
             tags = tags.split(",")
             params.update({"tags_contains": tags})
-    return ob.api_request("GET", f"/ratings/v1/companies/{company_guid}/assets", params=params)
+    return ob.api_request(f"/ratings/v1/companies/{company_guid}/assets", params=params)
 
 
 def get_assets_risk_matrix(config, params):
     ob = Bitsight(config)
     company_guid = params.pop("company_guid")
-    return ob.api_request("GET", f"/ratings/v1/companies/{company_guid}/assets/statistics", params=params)
+    return ob.api_request(f"/ratings/v1/companies/{company_guid}/assets/statistics", params=params)
 
 
 operations = {
