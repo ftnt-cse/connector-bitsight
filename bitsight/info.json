@@ -6,7 +6,7 @@
   "cs_approved": false,
   "cs_compatible": true,
   "contributor": "",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "category": "Attack Surface Management",
   "icon_small_name": "small.png",
   "icon_large_name": "large.png",
@@ -1358,6 +1358,62 @@
           }
         }
       }
-    }
+    },
+    {
+      "description": "Make a generic API call",
+      "operation": "generic_api_call",
+      "annotation": "generic_api_call",
+      "title": "Make API Call",
+      "parameters": [
+        {
+          "title": "Endpoint",
+          "name": "endoint",
+          "description": "Endpoint to hit",
+          "type": "text",
+          "visible": true,
+          "editable": true,
+          "required": true
+        },        
+        {
+          "title": "HTTP method",
+          "name": "method",
+          "description": "HTTP method",
+          "type": "select",
+          "visible": true,
+          "editable": true,
+          "required": true,
+          "options": [
+            "GET",
+            "POST",
+            "PUT",
+            "DELETE",
+            "PATCH"
+          ]
+        },
+        {
+          "title": "Query params",
+          "name": "url_params",
+          "description": "Any query params to send as part of the url",
+          "type": "json",
+          "visible": true,
+          "editable": true,
+          "required": false,
+          "placeholder": "{'id':'1'}"
+        },
+        {
+          "title": "Body",
+          "name": "body",
+          "description": "The body (which won't be encoded) to send with the request",
+          "type": "json",
+          "visible": true,
+          "editable": true,
+          "required": false,
+          "tooltip": "Body for POST OR PUT methods"
+        }
+      ],
+      "output_schema": {
+      },
+      "enabled": true
+    }    
   ]
 }

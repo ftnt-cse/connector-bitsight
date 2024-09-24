@@ -6,14 +6,16 @@ Copyright end
 """
 
 from datetime import datetime
+import logging
 
 from requests import request, exceptions as req_exceptions
+from requests_toolbelt.utils import dump
 from connectors.core.connector import get_logger, ConnectorError
 from .constants import *
 
 
 logger = get_logger("bitsight")
-
+logger.setLevel(logging.INFO) #Uncomment for debugs
 
 class Bitsight:
     def __init__(self, config, *args, **kwargs):
@@ -35,7 +37,8 @@ class Bitsight:
                 make_curl(method, endpoint, auth=(self.username, ""), params=params, verify_ssl=self.verify_ssl)
             except Exception:
                 pass
-            response = request(method, endpoint, auth=(self.username, ""), params=params, verify=self.verify_ssl)
+            response = request(method, endpoint, auth=(self.username, ""), params=params, json=data, verify=self.verify_ssl)
+            logger.debug('\n{}\n'.format(dump.dump_all(response).decode('utf-8')))
 
             if 200 <= response.status_code <= 300:
                 if response.text != "":
@@ -148,6 +151,16 @@ def get_assets_risk_matrix(config, params):
     return ob.api_request(f"/ratings/v1/companies/{company_guid}/assets/statistics", params=params)
 
 
+def generic_api_call(config, params):
+    '''Make a generic API call, user has to build required attributes before making the call'''
+    endpoint = params.get("endoint")
+    http_method = params.get("method")
+    url_params = params.get("url_params")
+    body = params.get("body") if http_method != 'GET' else None
+    ob = Bitsight(config)
+    return ob.api_request(endpoint, method=http_method, params=url_params, data=body)
+
+
 operations = {
     "get_alerts": get_alerts,
     "get_companies_with_exposed_credentials": get_companies_with_exposed_credentials,
@@ -158,5 +171,6 @@ operations = {
     "get_threat_statistics": get_threat_statistics,
     "get_threat_impact": get_threat_impact,
     "get_assets": get_assets,
-    "get_assets_risk_matrix": get_assets_risk_matrix
+    "get_assets_risk_matrix": get_assets_risk_matrix,
+    "generic_api_call": generic_api_call
 }
